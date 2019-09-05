@@ -2,39 +2,75 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class Platzi extends React.Component {
+class Resultado extends React.Component {
+  render() {
+    return <h1>{this.props.resultado}</h1>;
+  }
+  componentDidUpdate(prevProps, prevState) {
+    console.log(
+      prevProps.resultado,
+      this.props.resultado
+    );
+  }
+}
+
+class Contador extends React.Component {
   state = {
-    texto: 'Oi'
+    valor: 0
   };
-  handleButtonClick = () => {
-    this.setState(previousState => {
-      return {
-        texto:
-          previousState.texto === 'Oi'
-            ? 'Tchau'
-            : 'Oi'
-      };
-    });
-  };
+  componentDidMount() {
+    this.timerID = setInterval(() => {
+      this.setState(s => ({
+        valor: s.valor + 1
+      }));
+    }, 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
   render() {
     return (
       <div>
-        <h3 className="platzi">
-          {this.state.texto} {this.props.nome}
-        </h3>
-        <button onClick={this.handleButtonClick}>
-          Mudar estado
-        </button>
+        <Resultado resultado={this.state.valor} />
+      </div>
+    );
+  }
+}
+class App extends React.Component {
+  state = {
+    mostrarContador: true
+  };
+  toggleMostrador = () => {
+    this.setState(s => ({
+      mostrarContador: !s.mostrarContador
+    }));
+  };
+  render() {
+    if (!this.state.mostrarContador) {
+      return (
+        <div>
+          <input
+            type="checkbox"
+            checked={this.state.mostrarContador}
+            onChange={this.toggleMostrador}
+          />
+        </div>
+      );
+    }
+    return (
+      <div>
+        <input
+          type="checkbox"
+          checked={this.state.mostrarContador}
+          onChange={this.toggleMostrador}
+        />
+        <Contador />
       </div>
     );
   }
 }
 
 ReactDOM.render(
-  <div>
-    <Platzi nome="Luís" />
-    <hr />
-    <Platzi nome="Maria" />
-  </div>,
+  <App />,
   document.getElementById('root')
 );
