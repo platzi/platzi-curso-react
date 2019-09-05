@@ -1,25 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 
-const Usuario = props => {
+const focaNoElemento = elementoHtmlDeVerdade =>
+  elementoHtmlDeVerdade.focus();
+
+const App = props => {
+  const input1 = React.useRef(null);
+  const input2 = React.useRef(null);
+
   return (
     <div>
-      {props.id} - {props.nome} - {props.tipo}
+      <button
+        onClick={() =>
+          focaNoElemento(input1.current)
+        }
+      >
+        Foco no 1
+      </button>
+      <button
+        onClick={() =>
+          focaNoElemento(input2.current)
+        }
+      >
+        Foco no 2
+      </button>
+      <input type="text" ref={input1} />
+      <input type="text" ref={input2} />
     </div>
   );
 };
-Usuario.propTypes = {
-  id: PropTypes.number.isRequired,
-  nome: PropTypes.string.isRequired,
-  tipo: PropTypes.oneOf(['admin', 'normal'])
-    .isRequired
-};
-Usuario.defaultProps = {
-  tipo: 'admin'
-};
 
 ReactDOM.render(
-  <Usuario id={1} nome="Luís" />,
+  <App />,
   document.getElementById('root')
 );
