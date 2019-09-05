@@ -1,52 +1,49 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const Contador = () => {
-  const [valor, setValor] = React.useState(0);
-
-  React.useEffect(() => {
-    const timerID = setInterval(() => {
-      setValor(v => v + 1);
-    }, 1000);
-    return () => {
-      clearInterval(timerID);
-    };
-  });
-
-  return (
-    <div>
-      <h1>{valor}</h1>
-    </div>
-  );
-};
-
 const App = () => {
   const [
-    mostrarContador,
-    setMostrarContador
-  ] = React.useState(true);
-  const toggleMostrador = () => {
-    setMostrarContador(ant => !ant);
-  };
-  if (!mostrarContador) {
-    return (
-      <div>
-        <input
-          type="checkbox"
-          checked={mostrarContador}
-          onChange={toggleMostrador}
-        />
-      </div>
-    );
-  }
+    searchValue,
+    setSearchValue
+  ] = React.useState('');
+  const [query, setQuery] = React.useState('');
+  const [items, setItems] = React.useState([]);
+
+  React.useEffect(() => {
+    if (!query) {
+      return;
+    }
+    const search = async () => {
+      const result = await fetch(
+        `https://hn.algolia.com/api/v1/search_by_date?query=${query}&tags=story&numericFilters=created_at_i%3E2019-01-01`
+      );
+      const data = await result.json();
+      setItems(data.hits);
+    };
+    search();
+  }, [query]);
   return (
     <div>
-      <input
-        type="checkbox"
-        checked={mostrarContador}
-        onChange={toggleMostrador}
-      />
-      <Contador />
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          setQuery(searchValue);
+        }}
+      >
+        <input
+          type="text"
+          value={searchValue}
+          onChange={e =>
+            setSearchValue(e.target.value)
+          }
+        />
+        <button type="submit">Pesquisar</button>
+      </form>
+      <ul>
+        {items.map(i => (
+          <li key={i.objectID}>{i.title}</li>
+        ))}
+      </ul>
     </div>
   );
 };
