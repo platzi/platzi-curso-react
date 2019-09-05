@@ -1,40 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
-const App = () => {
-  const [contador, setContador] = React.useState(
-    0
-  );
-
-  const altereContador = operacao =>
-    setContador(c => operacao(c));
-
+const Usuario = props => {
   return (
     <div>
-      <button
-        onClick={() => setContador(c => c + 1)}
-      >
-        adiciona
-      </button>
-      <div
-        onMouseEnter={() =>
-          altereContador(c => c - 1)
-        }
-        style={{
-          backgroundColor: 'red',
-          width: 50,
-          height: 50,
-          marginTop: 10
-        }}
-      >
-        subtrai
-      </div>
-      <h1>{contador}</h1>
+      {props.id} - {props.nome} - {props.tipo}
     </div>
   );
 };
+Usuario.propTypes = {
+  id: PropTypes.number.isRequired,
+  nome: PropTypes.string.isRequired,
+  tipo: PropTypes.oneOf(['admin', 'normal'])
+    .isRequired
+};
 
 ReactDOM.render(
-  <App />,
+  <Usuario id={1} nome="Luís" tipo="admin" />,
   document.getElementById('root')
 );
