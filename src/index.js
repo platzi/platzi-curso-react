@@ -1,13 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const elementoComJSX = (
-  <div className="platzi">
-    <h1>Olá Platzi do JSX</h1>
-  </div>
-);
+const Oi = props => <h1>Oi {props.nome}</h1>;
+
+class Tchau extends React.Component {
+  render() {
+    return <h3>Tchau {this.props.nome}</h3>;
+  }
+}
+
+const nome = 'Luís';
+const nome2 = 'Maria';
 
 ReactDOM.render(
-  elementoComJSX,
+  <div>
+    <Oi nome={nome} />
+    <Tchau nome={nome} />
+    <Oi nome={nome2} />
+    <Tchau nome={nome2} />
+  </div>,
   document.getElementById('root')
 );
