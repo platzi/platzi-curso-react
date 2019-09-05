@@ -15,8 +15,11 @@ Usuario.propTypes = {
   tipo: PropTypes.oneOf(['admin', 'normal'])
     .isRequired
 };
+Usuario.defaultProps = {
+  tipo: 'admin'
+};
 
 ReactDOM.render(
-  <Usuario id={1} nome="Luís" tipo="admin" />,
+  <Usuario id={1} nome="Luís" />,
   document.getElementById('root')
 );
