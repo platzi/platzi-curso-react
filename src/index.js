@@ -1,11 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './index.css';
 
-const Oi = props => <h1>Oi {props.nome}</h1>;
+const Oi = props => (
+  <h1
+    style={{
+      backgroundColor: 'limegreen'
+    }}
+  >
+    Oi {props.nome}
+  </h1>
+);
 
 class Tchau extends React.Component {
   render() {
-    return <h3>Tchau {this.props.nome}</h3>;
+    return (
+      <h3 className="platzi">
+        Tchau {this.props.nome}
+      </h3>
+    );
   }
 }
 
