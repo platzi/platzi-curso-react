@@ -1,17 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const elemento = React.createElement(
-  'div',
-  {},
-  React.createElement(
-    'h1',
-    {},
-    'Olá Platzi MAIOOOOOOR!'
-  )
+const elementoComJSX = (
+  <div className="platzi">
+    <h1>Olá Platzi do JSX</h1>
+  </div>
 );
 
 ReactDOM.render(
-  elemento,
+  elementoComJSX,
   document.getElementById('root')
 );
