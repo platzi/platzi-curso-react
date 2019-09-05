@@ -1,44 +1,48 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const pessoas = [
-  {
+const PlatziFuncional = props => {
+  const [texto, setTexto] = React.useState('Oi');
+  const [pessoa, setPessoa] = React.useState({
     id: 1,
     nome: 'Luís'
-  },
-  {
-    id: 2,
-    nome: 'Luís'
-  },
-  {
-    id: 3,
-    nome: 'Maria'
-  },
-  {
-    id: 4,
-    nome: 'José'
-  }
-];
-
-const Pessoa = p => (
-  <li>
-    <strong>{p.id}</strong> - {p.nome}
-  </li>
-);
-
-const App = () => (
-  <ul>
-    {pessoas.map(p => (
-      <Pessoa
-        key={p.id.toString()}
-        id={p.id}
-        nome={p.nome}
-      />
-    ))}
-  </ul>
-);
+  });
+  return (
+    <div>
+      <h3 className="platzi">
+        {texto} {props.nome}
+      </h3>
+      <button
+        onClick={() => {
+          setTexto(textoAnterior =>
+            textoAnterior === 'Oi'
+              ? 'Tchau'
+              : 'Oi'
+          );
+        }}
+      >
+        Mudar estado
+      </button>
+      <p>
+        {pessoa.id} - {pessoa.nome}
+      </p>
+      <button
+        onClick={() => {
+          setPessoa(pessoaAnterior => ({
+            id: pessoaAnterior.id + 1,
+            nome: pessoaAnterior.nome
+          }));
+        }}
+      >
+        Mudar estado da pessoa
+      </button>
+    </div>
+  );
+};
 
 ReactDOM.render(
-  <App />,
+  <div>
+    <PlatziFuncional nome="Maria" />
+  </div>,
   document.getElementById('root')
 );
