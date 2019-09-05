@@ -1,11 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const App = () => {
-  const [
-    searchValue,
-    setSearchValue
-  ] = React.useState('');
+const useHackerHackerNewsApi = () => {
   const [query, setQuery] = React.useState('');
   const [items, setItems] = React.useState([]);
 
@@ -22,6 +18,22 @@ const App = () => {
     };
     search();
   }, [query]);
+  return {
+    setQuery,
+    items
+  };
+};
+
+const App = () => {
+  const [
+    searchValue,
+    setSearchValue
+  ] = React.useState('');
+  const {
+    setQuery,
+    items
+  } = useHackerHackerNewsApi();
+
   return (
     <div>
       <form
