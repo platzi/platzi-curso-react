@@ -2,35 +2,39 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-const Oi = props => (
-  <h1
-    style={{
-      backgroundColor: 'limegreen'
-    }}
-  >
-    Oi {props.nome}
-  </h1>
-);
-
-class Tchau extends React.Component {
+class Platzi extends React.Component {
+  state = {
+    texto: 'Oi'
+  };
+  handleButtonClick = () => {
+    this.setState(previousState => {
+      return {
+        texto:
+          previousState.texto === 'Oi'
+            ? 'Tchau'
+            : 'Oi'
+      };
+    });
+  };
   render() {
     return (
-      <h3 className="platzi">
-        Tchau {this.props.nome}
-      </h3>
+      <div>
+        <h3 className="platzi">
+          {this.state.texto} {this.props.nome}
+        </h3>
+        <button onClick={this.handleButtonClick}>
+          Mudar estado
+        </button>
+      </div>
     );
   }
 }
 
-const nome = 'Luís';
-const nome2 = 'Maria';
-
 ReactDOM.render(
   <div>
-    <Oi nome={nome} />
-    <Tchau nome={nome} />
-    <Oi nome={nome2} />
-    <Tchau nome={nome2} />
+    <Platzi nome="Luís" />
+    <hr />
+    <Platzi nome="Maria" />
   </div>,
   document.getElementById('root')
 );
